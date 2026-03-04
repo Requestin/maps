@@ -11,6 +11,7 @@
 Description=MapVideo FastAPI (uvicorn)
 After=network.target redis-server.service
 Requires=redis-server.service
+PartOf=mapvideo.target
 
 [Service]
 Type=simple
