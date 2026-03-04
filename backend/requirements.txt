@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+celery[redis]
+redis   
+requests
+aiohttp
+opencv-python-headless
+Pillow
+numpy
+loguru
+pydantic
+python-multipart
+python-dotenv

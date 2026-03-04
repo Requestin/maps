@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapVideo Service </title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Map<span class="accent">Video</span></h1>
+            <p class="subtitle"></p>
+        </header>
+
+        <div id="queue-banner" class="banner hidden">
+            Очередь переполнена. Подождите, пожалуйста.
+        </div>
+
+        <section class="form-section">
+            <div class="mode-tabs">
+                <button class="tab active" data-mode="single">Один город</button>
+                <button class="tab" data-mode="double">Два города</button>
+            </div>
+
+            <form id="generate-form">
+                <div id="single-fields">
+                    <label for="city">Город</label>
+                    <input type="text" id="city" name="city" placeholder="Например: Москва" autocomplete="off">
+                </div>
+
+                <div id="double-fields" class="hidden">
+                    <label for="city_a">Город А</label>
+                    <input type="text" id="city_a" name="city_a" placeholder="Например: Москва" autocomplete="off">
+                    <label for="city_b">Город Б</label>
+                    <input type="text" id="city_b" name="city_b" placeholder="Например: Санкт-Петербург" autocomplete="off">
+                </div>
+
+                <button type="submit" id="submit-btn">Генерировать</button>
+            </form>
+
+            <div class="queue-info">
+                Задач в очереди: <span id="queue-count">0</span>/<span id="queue-max">10</span>
+            </div>
+        </section>
+
+        <section class="tasks-section">
+            <h2>Мои задачи</h2>
+            <div id="tasks-list"></div>
+        </section>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
