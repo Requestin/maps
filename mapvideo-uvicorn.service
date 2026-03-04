@@ -5,7 +5,7 @@
 #   sudo systemctl enable mapvideo-uvicorn
 #   sudo systemctl start mapvideo-uvicorn
 #
-# При необходимости поправьте пути к conda и каталогу проекта.
+# При необходимости поправьте пути к conda, каталог проекта и порт (--port 5555).
 
 [Unit]
 Description=MapVideo FastAPI (uvicorn)
@@ -19,7 +19,7 @@ WorkingDirectory=/root/maps
 # Предполагается, что conda установлена в /root/miniconda3 и окружение называется "maps"
 Environment="PATH=/root/miniconda3/envs/maps/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 Environment="PYTHONUNBUFFERED=1"
-ExecStart=/root/miniconda3/envs/maps/bin/uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --workers 1
+ExecStart=/root/miniconda3/envs/maps/bin/uvicorn backend.app.main:app --host 0.0.0.0 --port 5555 --workers 1
 Restart=always
 RestartSec=10
 StandardOutput=journal
