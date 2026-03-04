@@ -1,0 +1,29 @@
+# Systemd service файл для MapVideo (Celery worker)
+# Скопируйте в /etc/systemd/system/mapvideo-celery-worker.service
+# Затем:
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable mapvideo-celery-worker
+#   sudo systemctl start mapvideo-celery-worker
+#
+# При необходимости поправьте пути к conda и каталогу проекта.
+
+[Unit]
+Description=MapVideo Celery Worker
+After=network.target redis-server.service
+Requires=redis-server.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/maps
+Environment="PATH=/root/miniconda3/envs/maps/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/root/miniconda3/envs/maps/bin/celery -A backend.app.celery_app worker --loglevel=info --concurrency=1
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=mapvideo.target
+

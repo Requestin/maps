@@ -1,0 +1,19 @@
+# Systemd target для управления всем стеком MapVideo
+# Скопируйте в /etc/systemd/system/mapvideo.target
+# Затем:
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable mapvideo.target
+#   sudo systemctl start mapvideo.target
+#
+# После этого вы сможете запускать/останавливать весь стек одной командой:
+#   sudo systemctl start mapvideo.target
+#   sudo systemctl stop mapvideo.target
+
+[Unit]
+Description=MapVideo stack (uvicorn + celery worker + celery beat)
+Requires=mapvideo-uvicorn.service mapvideo-celery-worker.service mapvideo-celery-beat.service
+After=network.target redis-server.service
+
+[Install]
+WantedBy=multi-user.target
+

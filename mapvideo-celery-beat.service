@@ -1,0 +1,29 @@
+# Systemd service файл для MapVideo (Celery beat)
+# Скопируйте в /etc/systemd/system/mapvideo-celery-beat.service
+# Затем:
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable mapvideo-celery-beat
+#   sudo systemctl start mapvideo-celery-beat
+#
+# При необходимости поправьте пути к conda и каталогу проекта.
+
+[Unit]
+Description=MapVideo Celery Beat
+After=network.target redis-server.service
+Requires=redis-server.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/maps
+Environment="PATH=/root/miniconda3/envs/maps/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/root/miniconda3/envs/maps/bin/celery -A backend.app.celery_app beat --loglevel=info
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=mapvideo.target
+
