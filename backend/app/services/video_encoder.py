@@ -74,6 +74,7 @@ class VideoEncoder:
             raise RuntimeError("VideoEncoder не запущен")
 
         self._process.stdin.close()
+        self._process.stdin = None
         _, stderr_bytes = self._process.communicate()
         elapsed = time.perf_counter() - self._start_time
 
